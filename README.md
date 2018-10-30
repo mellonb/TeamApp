@@ -55,3 +55,8 @@ As a team manager, I want to organize schedules so I can ensure all team members
 As a malicous user, I want to edit events so I can create false times for the team.
 As a malicous user, I want to add incorrect calendar events so I can have teammates show up to the wrong times.
 As a malicous user, I want to send disinformation so I can disrupt the group.
+
+# Diagrams
+
+##Mockup
+![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/iPhoneUIPics.png)
