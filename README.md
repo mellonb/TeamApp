@@ -45,19 +45,16 @@ THE SOFTWARE.
 
 # User Stories
 ## User Stories
-As a parent, I want to message other parents so I can easily connect with them about events.
-
-As a parent, I want to have game scores updated so I can know how the game is going in real time.
-
-As a coach, I want to connect to the parents so I can know they have been updated to team changes.
-
-As a team manager, I want to add calendar events so I can update the team regarding changes.
-As a team manager, I want to organize schedules so I can ensure all team members have been updated.
+As a parent, I want to message other parents so I can easily connect with them about events.<br/>
+As a parent, I want to have game scores updated so I can know how the game is going in real time.<br/>
+As a coach, I want to connect to the parents so I can know they have been updated to team changes.<br/>
+As a team manager, I want to add calendar events so I can update the team regarding changes.<br/>
+As a team manager, I want to organize schedules so I can ensure all team members have been updated.<br/>
 
 ## Mis Use Stories
-As a malicous user, I want to edit events so I can create false times for the team.
-As a malicous user, I want to add incorrect calendar events so I can have teammates show up to the wrong times.
-As a malicous user, I want to send disinformation so I can disrupt the group.
+As a malicous user, I want to edit events so I can create false times for the team.<br/>
+As a malicous user, I want to add incorrect calendar events so I can have teammates show up to the wrong times.<br/>
+As a malicous user, I want to send disinformation so I can disrupt the group.<br/>
 
 # Diagrams
 
