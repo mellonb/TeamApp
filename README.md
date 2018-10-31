@@ -62,4 +62,4 @@ As a malicous user, I want to send disinformation so I can disrupt the group.
 ![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/iPhoneUIPics.png)
 
 ## Architecture Diagram
-![screenshot](doggo-webservice/Screen Shot 2018-10-30 at 9.04.40 PM.png)
+![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/Screen%20Shot%202018-10-30%20at%209.04.40%20PM.png)
