@@ -60,3 +60,6 @@ As a malicous user, I want to send disinformation so I can disrupt the group.
 
 ## Mockup
 ![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/iPhoneUIPics.png)
+
+## Architecture Diagram
+
