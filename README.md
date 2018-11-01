@@ -1,4 +1,4 @@
-# My Awesome Project App (Milestone 1)
+# My Awesome Project - Team App (Milestone 1)
 I want to create an app that makes it easy for teams, any type of lesson being taken, and groups to connect easily to important information.  This should be an easy to install app on your phone.  This will be able to send messages to teams, send update events, organize schedules.  As groups and teams get busy with events this will be and easier way to help keep them together.  Email and some text messages do not work well for running a group or team.
 
 ### Requirements
