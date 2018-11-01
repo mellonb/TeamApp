@@ -24,14 +24,14 @@ See in-app menus for help with using specific features.
 ## User Stories
 As a parent, I want to message other parents so I can easily connect with them about events.<br/>
 As a parent, I want to have game scores updated so I can know how the game is going in real time.<br/>
-As a coach, I want to connect to the parents so I can know they have been updated to team changes.<br/>
-As a team manager, I want to add calendar events so I can update the team regarding changes.<br/>
-As a team manager, I want to organize schedules so I can ensure all team members have been updated.<br/>
+As a coach, I want to receive acknowledgement from the parents so I can know they have been updated to team changes.<br/>
+As a team manager, I want to add calendar events so I can notify team members of upcoming events.<br/>
+As a team manager, I want to organize schedules so I can synchonize and deconflict events.<br/>
 
 ## Mis Use Stories
-As a malicous user, I want to edit events so I can create false times for the team.<br/>
-As a malicous user, I want to add incorrect calendar events so I can have teammates show up to the wrong times.<br/>
-As a malicous user, I want to send disinformation so I can disrupt the group.<br/>
+As a rival coach, I want to edit events so I can create false times for the team.<br/>
+As a stalker, I want to view calendar events so I can know were teammates are at a given time.<br/>
+As a malicous insider, I want to send disinformation so I can disrupt the group.<br/>
 
 # Diagrams
 
@@ -52,7 +52,7 @@ As a malicous user, I want to send disinformation so I can disrupt the group.<br
 
 The MIT License
 
-Copyright (c) <2018> <Brian Mellon>
+Copyright (c) 2018, Brian Mellon
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
