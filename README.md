@@ -41,7 +41,7 @@ As a malicous insider, I want to send disinformation so I can disrupt the group.
 ## Architecture Diagram
 
 ### System Context Diagram
-![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/Screen%20Shot%202018-10-30%20at%209.18.05%20PM.png)
+![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/Screen%20Shot%202018-10-31%20at%208.55.06%20PM.png)
 ### Container Diagram
 ![screenshot](https://github.com/mellonb/doggo-webservice/blob/master/Screen%20Shot%202018-10-30%20at%209.04.40%20PM.png)
 ### Component Diagram
