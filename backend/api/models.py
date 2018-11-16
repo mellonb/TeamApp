@@ -54,47 +54,24 @@ class Event(models.Model):
 
 class Profile(models.Model):
     name = models.CharField(max_length=1000, blank=False)
-    #childname = models.CharField(max_length=1000, blank=False)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    # validators should be a list
     user =models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
-# class Users(models.Model):
-#     name = models.CharField(max_length=1000, blank=False)
-#     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    # relationship field
+    # children <-- list of parent objects related to this profile
 
 class Child(models.Model):
     name = models.CharField(max_length=1000, blank=False)
     parent = models.ForeignKey(Profile, related_name="children", on_delete=models.CASCADE)
-
-# def validate_to(val)
-#     if val not in [teamnum]:
-#         raise ValidationError("Invalid 'memberlist' number")
-#     else:
-#         pass
 
 class Group(models.Model):
     name = models.CharField(max_length=1000, blank=False)
     members = models.ManyToManyField(Child, related_name="groups", on_delete=models.CASCADE)
 
     # relationship fields
-
     # events <-- list of event objects mapped to this group
-
-    #users = models.ForeignKey(Users, on_delete=models.CASCADE)
-    #users = models.ManyToManyField(Users)
-
-# class Event(models.Model):
-#     eventtype = models.CharField(max_length=1000, blank=False)
-#     timestamp = models.DateTimeField()
-#     userid = models.CharField(max_length=1000, blank=True)
-#     requestor = models.GenericIPAddressField(blank=False)
-#
-#     def __str__(self):
-#         return str(self.eventtype)
-
-# class EventAdmin(admin.ModelAdmin):
-#     list_display = ('eventtype', 'timestamp')
 
 class DogSerializer(serializers.ModelSerializer):
     class Meta:
