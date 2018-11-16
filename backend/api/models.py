@@ -73,6 +73,38 @@ class Group(models.Model):
     # relationship fields
     # events <-- list of event objects mapped to this group
 
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('timestamp', 'title', 'info', 'group')
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('name', 'phone_regex', 'phone_number', 'user')
+
+class ChildSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Child
+        fields = ('name', 'parent')
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('name', 'members')
+
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('timestamp', 'title', 'info', 'group')
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone_regex', 'phone_number', 'user')
+
+class ChildAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parent')
+
+class GroupAdim(admin.ModelAdmin):
+    list_display = ('name', 'members')
+
 class DogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dog
