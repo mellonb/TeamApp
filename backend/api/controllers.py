@@ -263,6 +263,121 @@ class BreedList(APIView):
         serializer.save()
         return Response(serializer.data)
 
+
+class ChildList(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+    def get(self, request, format=None):
+        childlist = Child.objects.all()
+        serializer = ChildSerializer(childlist, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = ChildSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        print serializer.validated_data
+        serializer.save()
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        print 'REQUEST DATA'
+        print str(request.data)
+
+        name = request.data.get('name')
+        parent = request.data.get('parent')
+
+        child = Child.objects.get(id=pk)
+        child.name = name
+        child.parent = parent
+        child.save()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk, *args, **kwargs):
+        child = Child.objects.get(id=pk)
+        child.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class GroupList(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+    def get(self, request, format=None):
+        grouplist = Group.objects.all()
+        serializer = GroupSerializer(grouplist, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, *args, **kwargs):
+        serializer = GroupSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        print serializer.validated_data
+        serializer.save()
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        print 'REQUEST DATA'
+        print str(request.data)
+
+        name = request.data.get('name')
+        members = request.data.get('members')
+
+        group = Group.objects.get(id=pk)
+        group.name = name
+        group.members = members
+        group.save()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk, *args, **kwargs):
+        group = Group.objects.get(id=pk)
+        group.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProfileList(APIView):
+    permission_classes = (AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+    def get(self, request, format=None):
+        profilelist = Profile.objects.all()
+        serializer = ProfileSerializer(profilelist, many=True)
+        return Response(serializer.data)
+
+class EventList(APIView):
+    permission_classes =(AllowAny,)
+    parser_classes = (parsers.JSONParser,parsers.FormParser)
+    renderer_classes = (renderers.JSONRenderer, )
+    def get(self, request, format=None):
+        eventlist = Event.objects.all()
+        serializer = EventSerializer(eventlist, many=True)
+
+    def post(self, request, *args, **kwargs):
+        serializer = EventSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        print serializer.validated_data
+        serializer.save()
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        print 'REQUEST DATA'
+        print str(request.data)
+
+        timestamp = request.data.get('timestamp')
+        title = request.data.get('title')
+        info = request.data.get('info')
+        group = request.data.get('group')
+
+        event = Event.objects.get(id=pk)
+        event.timestamp = timestamp
+        event.title = title
+        event.info = info
+        event.group = group
+        event.save()
+        return Response({'success': True}, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk, *args, **kwargs):
+        event = Event.objects.get(id=pk)
+        event.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 class ActivateIFTTT(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
