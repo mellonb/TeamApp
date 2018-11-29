@@ -10,6 +10,10 @@ from django.views.decorators.csrf import csrf_exempt
 router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = [
+    url(r'^childs', csrf_exempt(controllers.ChildList.as_view())),
+    url(r'^groups', csrf_exempt(controllers.GroupList.as_view())),
+    url(r'^profiles', csrf_exempt(controllers.ProfileList.as_view())),
+    url(r'^events', csrf_exempt(controllers.EventList.as_view())),
     url(r'^session', csrf_exempt(controllers.Session.as_view())),
     url(r'^register', csrf_exempt(controllers.Register.as_view())),
     url(r'^events', csrf_exempt(controllers.Events.as_view())),
