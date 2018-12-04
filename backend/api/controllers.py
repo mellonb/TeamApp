@@ -334,6 +334,8 @@ class GroupList(viewsets.ViewSet):
         serializer = GroupSerializer(queryset, many=True)
         return Response(serializer.data)
 
+        #should be up to date
+
     def retrieve(self, request, pk=None):
         queryset = Group.objects.all()
         group = get_object_or_404(queryset, pk=pk)
