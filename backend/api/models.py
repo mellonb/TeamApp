@@ -68,7 +68,7 @@ class Child(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=1000, blank=False)
-    members = models.ManyToManyField(Child, related_name="groups", on_delete=models.CASCADE)
+    members = models.ManyToManyField(Child, related_name="groups")
 
     # relationship fields
     # events <-- list of event objects mapped to this group
@@ -89,21 +89,26 @@ class ChildSerializer(serializers.ModelSerializer):
         fields = ('name', 'parent')
 
 class GroupSerializer(serializers.ModelSerializer):
+    included_serializers = {
+    'members': ChildSerializer, 'events': EventSerializer
+    }
     class Meta:
         model = Group
         fields = ('name', 'members')
+    class JSONAPIMeta:
+        included_resources = ['members', 'events']
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('timestamp', 'title', 'info', 'group')
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone_regex', 'phone_number', 'user')
+    list_display = ('id', 'phone_number')
 
 class ChildAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent')
 
-class GroupAdim(admin.ModelAdmin):
-    list_display = ('name', 'members')
+class GroupAdmin(admin.ModelAdmin):
+    list_display = ('name',)
 
 class DogSerializer(serializers.ModelSerializer):
     class Meta:

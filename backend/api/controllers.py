@@ -263,6 +263,36 @@ class BreedList(APIView):
         serializer.save()
         return Response(serializer.data)
 
+class ChildList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Child.objects.all()
+        serializer = ChildSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Child.objects.all()
+        child = get_object_or_404(queryset, pk=pk)
+        serializer = ChildSerializer(child)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = ChildSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        serializer = ChildSerializer(data=request.data, partial=True)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        serializer = ChildSerializer(data=request.data)
+        serializer = ChildSerializer(data=request.data, many+True)
+        return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        child = Child.objects.get(id=pk)
+        child.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ChildList(APIView):
     permission_classes = (AllowAny,)
@@ -296,6 +326,36 @@ class ChildList(APIView):
     def delete(self, request, pk, *args, **kwargs):
         child = Child.objects.get(id=pk)
         child.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class GroupList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Group.objects.all()
+        serializer = GroupSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Group.objects.all()
+        group = get_object_or_404(queryset, pk=pk)
+        serializer = ChildSerializer(group)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = GroupSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        serializer = GroupSerializer(data=request.data, partial=True)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        serializer = GroupSerializer(data=request.data, many=True)
+        return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        group = Group.objects.get(id=pk)
+        group.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class GroupList(APIView):
@@ -340,6 +400,43 @@ class ProfileList(APIView):
         profilelist = Profile.objects.all()
         serializer = ProfileSerializer(profilelist, many=True)
         return Response(serializer.data)
+
+class ProfileList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Profile.objects.all()
+        serializer = ProfileSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+class EventList(viewsets.ViewSet):
+    def list(self, request):
+        queryset = Event.objects.all()
+        serializer = EventSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Event.objects.all()
+        event = get_object_or_404(queryset, pk=pk)
+        serializer = ChildSerializer(event)
+        return Response(serializer.data)
+
+    def create(self, request):
+        serializer = EventSerializer(data=request.data)
+        print serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
+
+    def partial_update(self, request, pk=None):
+        serializer = EventSerializer(data=request.data, partial=True)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        serializer = EventSerializer(data=request.data, many=True)
+        return Response(serializer.data)
+
+    def destroy(self, request, pk=None):
+        event = Event.objects.get(id=pk)
+        event.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class EventList(APIView):
     permission_classes =(AllowAny,)
