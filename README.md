@@ -28,10 +28,22 @@ As a coach, I want to receive acknowledgement from the parents so I can know the
 As a team manager, I want to add calendar events so I can notify team members of upcoming events.<br/>
 As a team manager, I want to organize schedules so I can synchonize and deconflict events.<br/>
 
+## Acceptance criteria
+Given I am a parent of a team member, When I open the messaging page, Then the system connects me to the entire team.<br/>
+Given I am a parent of a team member, When I am away from the game, Then the system sends updated scores from other group members.<br/>
+Given I am the coach of the team, When I update events, Then the system can send me acknowledgements that each parent has received the update.<br/>
+Given I am a team manager of the group, When I add events, Then the system posts events to the calendar.<br/>
+Given I am a team manager of the group, When I organize schedules, then the system will validate no conflicts exist.<br/>
+
 ## Mis Use Stories
 As a rival coach, I want to edit events so I can create false times for the team.<br/>
 As a stalker, I want to view calendar events so I can know were teammates are at a given time.<br/>
 As a malicous insider, I want to send disinformation so I can disrupt the group.<br/>
+
+## Mitigation Criteria
+To prevent a rival coach form editing an event, I want to require a login to the app with an original request to join the group.<br/>
+To prevent a stalker, I only want to allow group members the ability to view the calendar events.<br/>
+To prevent a malicious insider, I want to create a report an issue tab to have an administrator investigate and delete disinformation and a user.<br/>
 
 # Diagrams
 
