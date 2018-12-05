@@ -3,7 +3,7 @@
 # Create your views here.
 from django.contrib.auth.models import *
 from django.contrib.auth import *
-from rest_framework import viewsets
+# from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -408,6 +408,15 @@ class ProfileList(viewsets.ViewSet):
         queryset = Profile.objects.all()
         serializer = ProfileSerializer(queryset, many=True)
         return Response(serializer.data)
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
+    permission_classes = (AllowAny,)
+#    def list(self, request):
+#        queryset = Profile.objects.all()
+#        serializer = ProfileSerializer(queryset, many=True)
+#        return Response(serializer.data)
 
 class EventList(viewsets.ViewSet):
     def list(self, request):

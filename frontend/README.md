@@ -1,36 +1,50 @@
-# CYBR8470-building-a-webservice-lab
-This repository provides a central location that contains sub-modules related to the programmatic environment for the building a server lab in CYBR 8470.
+# littlebits-frontend
 
-### Requirements
-* Docker (https://www.docker.com/)
+This README outlines the details of collaborating on this Ember application.
+A short introduction of this app could easily go here.
 
-### Installation
-You need to build the docker image from the provided DockerFile using Docker Compose. To do this, ensure docker is running, and then:
+## Prerequisites
 
-```bash
-git clone --recursive https://github.com/MLHale/CYBR8470-building-a-webservice-lab.git
-cd CYBR8470-building-a-webservice-lab
-docker-compose build
-```
+You will need the following things properly installed on your computer.
 
-This creates a few docker containers with all of the requisite installed dependencies to run the dev environment.
+* [Git](https://git-scm.com/)
+* [Node.js](https://nodejs.org/) (with NPM)
+* [Ember CLI](https://ember-cli.com/)
+* [PhantomJS](http://phantomjs.org/)
 
-### Setup
-First, upon initial install, you need to do some basic setup.
+## Installation
 
-#### Django
-We need to initialize the Django database in postgres
+* `git clone <repository-url>` this repository
+* `cd littlebits-frontend`
+* `npm install`
 
-```bash
-docker-compose run django bash
-python manage.py makemigrations
-python manage.py migrate
-python manage.py createsuperuser --username admin --email admin
-exit
-```
-Specify a password for admin. In development, use admin1234 for simplicity.
+## Running / Development
 
-### Run the app
-```bash
-docker-compose up
-```
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
+
+### Code Generators
+
+Make use of the many generators for code, try `ember help generate` for more details
+
+### Running Tests
+
+* `ember test`
+* `ember test --server`
+
+### Building
+
+* `ember build` (development)
+* `ember build --environment production` (production)
+
+### Deploying
+
+Specify what it takes to deploy your app.
+
+## Further Reading / Useful Links
+
+* [ember.js](http://emberjs.com/)
+* [ember-cli](https://ember-cli.com/)
+* Development Browser Extensions
+  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
+  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
