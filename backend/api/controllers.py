@@ -154,260 +154,268 @@ class Events(APIView):
         print 'New Event Logged from: ' + requestor
         return Response({'success': True}, status=status.HTTP_200_OK)
 
-class DogDetail(APIView):
+# class DogDetail(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, pk, format=None):
+#         dog = Dog.objects.get(id=pk)
+#         serializer = DogSerializer(dog)
+#         #json_data = serializers.serialize('json', dogdetail)
+#         #content = {'dogdetail': json_data}
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk, format=None):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         name = request.data.get('name')
+#         age = request.data.get('age')
+#         breed = Breed.objects.get(id=request.data.get('breed'))
+#         gender = request.data.get('gender')
+#         color = request.data.get('color')
+#         favoritefood = request.data.get('favoritefood')
+#         favoritetoy = request.data.get('favoritetoy')
+#
+#         dog = Dog.objects.get(id=pk)
+#         dog.name = name
+#         dog.age = age
+#         dog.breed = breed
+#         dog.gender = gender
+#         dog.color = color
+#         dog.favoritefood = favoritefood
+#         dog.favoritetoy = favoritetoy
+#         dog.save()
+#         return Response({'success': True}, status=status.HTTP_200_OK)
+#
+#     def delete(self, request, pk, *args, **kwargs):
+#         dog =Dog.objects.get(id=pk)
+#         dog.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+#
+# class DogList(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         doglist = Dog.objects.all()
+#         print doglist
+#         serializer = DogSerializer(doglist, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = DogSerializer(data=request.data)
+#         print serializer.is_valid(raise_exception=True)
+#         print serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data)
+#
+# class BreedDetail(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, pk, format=None):
+#         breed = Breed.objects.get(id=pk)
+#         serializer = BreedSerializer(breed)
+#         print serializer.data
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk, format=None):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         name = request.data.get('name')
+#         print name
+#         size = request.data.get('size')
+#         friendliness = request.data.get('friendliness')
+#         trainability = request.data.get('trainability')
+#         sheddingamount = request.data.get('sheddingamount')
+#         exerciseneeds = request.data.get('exerciseneeds')
+#
+#         breed = Breed.objects.get(id=pk)
+#         breed.name = name
+#         breed.size = size
+#         breed.friendliness = friendliness
+#         breed.trainability = trainability
+#         breed.sheddingamount = sheddingamount
+#         breed.exerciseneeds = exerciseneeds
+#         breed.save()
+#         return Response({'success': True}, status=status.HTTP_200_OK)
+#
+#     def delete(self, request, pk, *args, **kwargs):
+#         breed = Breed.objects.get(id=pk)
+#         breed.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+#
+# class BreedList(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         breedlist = Breed.objects.all()
+#         serializer = BreedSerializer(breedlist, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = BreedSerializer(data=request.data)
+#         print serializer.is_valid(raise_exception=True)
+#         print serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data)
+
+class ChildViewSet(viewsets.ModelViewSet):
+    serializer_class = ChildSerializer
+    queryset = Child.objects.all()
     permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, pk, format=None):
-        dog = Dog.objects.get(id=pk)
-        serializer = DogSerializer(dog)
-        #json_data = serializers.serialize('json', dogdetail)
-        #content = {'dogdetail': json_data}
-        return Response(serializer.data)
 
-    def put(self, request, pk, format=None):
-        print 'REQUEST DATA'
-        print str(request.data)
+    # def list(self, request):
+    #     queryset = Child.objects.all()
+    #     serializer = ChildSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    # def retrieve(self, request, pk=None):
+    #     queryset = Child.objects.all()
+    #     child = get_object_or_404(queryset, pk=pk)
+    #     serializer = ChildSerializer(child)
+    #     return Response(serializer.data)
+    #
+    # def create(self, request):
+    #     serializer = ChildSerializer(data=request.data)
+    #     print serializer.is_valid(raise_exception=True)
+    #     return Response(serializer.data)
+    #
+    # def partial_update(self, request, pk=None):
+    #     serializer = ChildSerializer(data=request.data, partial=True)
+    #     return Response(serializer.data)
+    #
+    # def update(self, request, pk=None):
+    #     serializer = ChildSerializer(data=request.data)
+    #     serializer = ChildSerializer(data=request.data, many=True)
+    #     return Response(serializer.data)
+    #
+    # def destroy(self, request, pk=None):
+    #     child = Child.objects.get(id=pk)
+    #     child.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-        name = request.data.get('name')
-        age = request.data.get('age')
-        breed = Breed.objects.get(id=request.data.get('breed'))
-        gender = request.data.get('gender')
-        color = request.data.get('color')
-        favoritefood = request.data.get('favoritefood')
-        favoritetoy = request.data.get('favoritetoy')
+# class ChildList(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         childlist = Child.objects.all()
+#         serializer = ChildSerializer(childlist, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = ChildSerializer(data=request.data)
+#         print serializer.is_valid(raise_exception=True)
+#         print serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk, format=None):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         name = request.data.get('name')
+#         parent = request.data.get('parent')
+#
+#         child = Child.objects.get(id=pk)
+#         child.name = name
+#         child.parent = parent
+#         child.save()
+#         return Response({'success': True}, status=status.HTTP_200_OK)
+#
+#     def delete(self, request, pk, *args, **kwargs):
+#         child = Child.objects.get(id=pk)
+#         child.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
-        dog = Dog.objects.get(id=pk)
-        dog.name = name
-        dog.age = age
-        dog.breed = breed
-        dog.gender = gender
-        dog.color = color
-        dog.favoritefood = favoritefood
-        dog.favoritetoy = favoritetoy
-        dog.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
-    def delete(self, request, pk, *args, **kwargs):
-        dog =Dog.objects.get(id=pk)
-        dog.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class DogList(APIView):
+class GroupViewSet(viewsets.ModelViewSet):
+    serializer_class = GroupSerializer
+    queryset = Group.objects.all()
     permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        doglist = Dog.objects.all()
-        print doglist
-        serializer = DogSerializer(doglist, many=True)
-        return Response(serializer.data)
 
-    def post(self, request, *args, **kwargs):
-        serializer = DogSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        print serializer.validated_data
-        serializer.save()
-        return Response(serializer.data)
+    # def list(self, request):
+    #     queryset = Group.objects.all()
+    #     serializer = GroupSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    #     #should be up to date
+    #
+    # def retrieve(self, request, pk=None):
+    #     queryset = Group.objects.all()
+    #     group = get_object_or_404(queryset, pk=pk)
+    #     serializer = ChildSerializer(group)
+    #     return Response(serializer.data)
+    #
+    # def create(self, request):
+    #     serializer = GroupSerializer(data=request.data)
+    #     print serializer.is_valid(raise_exception=True)
+    #     return Response(serializer.data)
+    #
+    # def partial_update(self, request, pk=None):
+    #     serializer = GroupSerializer(data=request.data, partial=True)
+    #     return Response(serializer.data)
+    #
+    # def update(self, request, pk=None):
+    #     serializer = GroupSerializer(data=request.data, many=True)
+    #     return Response(serializer.data)
+    #
+    # def destroy(self, request, pk=None):
+    #     group = Group.objects.get(id=pk)
+    #     group.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-class BreedDetail(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, pk, format=None):
-        breed = Breed.objects.get(id=pk)
-        serializer = BreedSerializer(breed)
-        print serializer.data
-        return Response(serializer.data)
+# class GroupList(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         grouplist = Group.objects.all()
+#         serializer = GroupSerializer(grouplist, many=True)
+#         return Response(serializer.data)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = GroupSerializer(data=request.data)
+#         print serializer.is_valid(raise_exception=True)
+#         print serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk, format=None):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         name = request.data.get('name')
+#         members = request.data.get('members')
+#
+#         group = Group.objects.get(id=pk)
+#         group.name = name
+#         group.members = members
+#         group.save()
+#         return Response({'success': True}, status=status.HTTP_200_OK)
+#
+#     def delete(self, request, pk, *args, **kwargs):
+#         group = Group.objects.get(id=pk)
+#         group.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, pk, format=None):
-        print 'REQUEST DATA'
-        print str(request.data)
+# class ProfileList(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         profilelist = Profile.objects.all()
+#         serializer = ProfileSerializer(profilelist, many=True)
+#         return Response(serializer.data)
 
-        name = request.data.get('name')
-        print name
-        size = request.data.get('size')
-        friendliness = request.data.get('friendliness')
-        trainability = request.data.get('trainability')
-        sheddingamount = request.data.get('sheddingamount')
-        exerciseneeds = request.data.get('exerciseneeds')
-
-        breed = Breed.objects.get(id=pk)
-        breed.name = name
-        breed.size = size
-        breed.friendliness = friendliness
-        breed.trainability = trainability
-        breed.sheddingamount = sheddingamount
-        breed.exerciseneeds = exerciseneeds
-        breed.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
-    def delete(self, request, pk, *args, **kwargs):
-        breed = Breed.objects.get(id=pk)
-        breed.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class BreedList(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        breedlist = Breed.objects.all()
-        serializer = BreedSerializer(breedlist, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        serializer = BreedSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        print serializer.validated_data
-        serializer.save()
-        return Response(serializer.data)
-
-class ChildList(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Child.objects.all()
-        serializer = ChildSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def retrieve(self, request, pk=None):
-        queryset = Child.objects.all()
-        child = get_object_or_404(queryset, pk=pk)
-        serializer = ChildSerializer(child)
-        return Response(serializer.data)
-
-    def create(self, request):
-        serializer = ChildSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        return Response(serializer.data)
-
-    def partial_update(self, request, pk=None):
-        serializer = ChildSerializer(data=request.data, partial=True)
-        return Response(serializer.data)
-
-    def update(self, request, pk=None):
-        serializer = ChildSerializer(data=request.data)
-        serializer = ChildSerializer(data=request.data, many=True)
-        return Response(serializer.data)
-
-    def destroy(self, request, pk=None):
-        child = Child.objects.get(id=pk)
-        child.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class ChildList(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        childlist = Child.objects.all()
-        serializer = ChildSerializer(childlist, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        serializer = ChildSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        print serializer.validated_data
-        serializer.save()
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        name = request.data.get('name')
-        parent = request.data.get('parent')
-
-        child = Child.objects.get(id=pk)
-        child.name = name
-        child.parent = parent
-        child.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
-    def delete(self, request, pk, *args, **kwargs):
-        child = Child.objects.get(id=pk)
-        child.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class GroupList(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Group.objects.all()
-        serializer = GroupSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-        #should be up to date
-
-    def retrieve(self, request, pk=None):
-        queryset = Group.objects.all()
-        group = get_object_or_404(queryset, pk=pk)
-        serializer = ChildSerializer(group)
-        return Response(serializer.data)
-
-    def create(self, request):
-        serializer = GroupSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        return Response(serializer.data)
-
-    def partial_update(self, request, pk=None):
-        serializer = GroupSerializer(data=request.data, partial=True)
-        return Response(serializer.data)
-
-    def update(self, request, pk=None):
-        serializer = GroupSerializer(data=request.data, many=True)
-        return Response(serializer.data)
-
-    def destroy(self, request, pk=None):
-        group = Group.objects.get(id=pk)
-        group.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class GroupList(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        grouplist = Group.objects.all()
-        serializer = GroupSerializer(grouplist, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, *args, **kwargs):
-        serializer = GroupSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        print serializer.validated_data
-        serializer.save()
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        name = request.data.get('name')
-        members = request.data.get('members')
-
-        group = Group.objects.get(id=pk)
-        group.name = name
-        group.members = members
-        group.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
-    def delete(self, request, pk, *args, **kwargs):
-        group = Group.objects.get(id=pk)
-        group.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-class ProfileList(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        profilelist = Profile.objects.all()
-        serializer = ProfileSerializer(profilelist, many=True)
-        return Response(serializer.data)
-
-class ProfileList(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Profile.objects.all()
-        serializer = ProfileSerializer(queryset, many=True)
-        return Response(serializer.data)
+# class ProfileList(viewsets.ViewSet):
+#     def list(self, request):
+#         queryset = Profile.objects.all()
+#         serializer = ProfileSerializer(queryset, many=True)
+#         return Response(serializer.data)
 
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
@@ -418,73 +426,77 @@ class ProfileViewSet(viewsets.ModelViewSet):
 #        serializer = ProfileSerializer(queryset, many=True)
 #        return Response(serializer.data)
 
-class EventList(viewsets.ViewSet):
-    def list(self, request):
-        queryset = Event.objects.all()
-        serializer = EventSerializer(queryset, many=True)
-        return Response(serializer.data)
+class EventViewSet(viewsets.ModelViewSet):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+    permission_classes = (AllowAny,)
 
-    def retrieve(self, request, pk=None):
-        queryset = Event.objects.all()
-        event = get_object_or_404(queryset, pk=pk)
-        serializer = ChildSerializer(event)
-        return Response(serializer.data)
+    # def list(self, request):
+    #     queryset = Event.objects.all()
+    #     serializer = EventSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+    #
+    # def retrieve(self, request, pk=None):
+    #     queryset = Event.objects.all()
+    #     event = get_object_or_404(queryset, pk=pk)
+    #     serializer = ChildSerializer(event)
+    #     return Response(serializer.data)
+    #
+    # def create(self, request):
+    #     serializer = EventSerializer(data=request.data)
+    #     print serializer.is_valid(raise_exception=True)
+    #     return Response(serializer.data)
+    #
+    # def partial_update(self, request, pk=None):
+    #     serializer = EventSerializer(data=request.data, partial=True)
+    #     return Response(serializer.data)
+    #
+    # def update(self, request, pk=None):
+    #     serializer = EventSerializer(data=request.data, many=True)
+    #     return Response(serializer.data)
+    #
+    # def destroy(self, request, pk=None):
+    #     event = Event.objects.get(id=pk)
+    #     event.delete()
+    #     return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def create(self, request):
-        serializer = EventSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        return Response(serializer.data)
 
-    def partial_update(self, request, pk=None):
-        serializer = EventSerializer(data=request.data, partial=True)
-        return Response(serializer.data)
-
-    def update(self, request, pk=None):
-        serializer = EventSerializer(data=request.data, many=True)
-        return Response(serializer.data)
-
-    def destroy(self, request, pk=None):
-        event = Event.objects.get(id=pk)
-        event.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class EventList(APIView):
-    permission_classes =(AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        eventlist = Event.objects.all()
-        serializer = EventSerializer(eventlist, many=True)
-
-    def post(self, request, *args, **kwargs):
-        serializer = EventSerializer(data=request.data)
-        print serializer.is_valid(raise_exception=True)
-        print serializer.validated_data
-        serializer.save()
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        timestamp = request.data.get('timestamp')
-        title = request.data.get('title')
-        info = request.data.get('info')
-        group = request.data.get('group')
-
-        event = Event.objects.get(id=pk)
-        event.timestamp = timestamp
-        event.title = title
-        event.info = info
-        event.group = group
-        event.save()
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
-    def delete(self, request, pk, *args, **kwargs):
-        event = Event.objects.get(id=pk)
-        event.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+# class EventList(APIView):
+#     permission_classes =(AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         eventlist = Event.objects.all()
+#         serializer = EventSerializer(eventlist, many=True)
+#
+#     def post(self, request, *args, **kwargs):
+#         serializer = EventSerializer(data=request.data)
+#         print serializer.is_valid(raise_exception=True)
+#         print serializer.validated_data
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def put(self, request, pk, format=None):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         timestamp = request.data.get('timestamp')
+#         title = request.data.get('title')
+#         info = request.data.get('info')
+#         group = request.data.get('group')
+#
+#         event = Event.objects.get(id=pk)
+#         event.timestamp = timestamp
+#         event.title = title
+#         event.info = info
+#         event.group = group
+#         event.save()
+#         return Response({'success': True}, status=status.HTTP_200_OK)
+#
+#     def delete(self, request, pk, *args, **kwargs):
+#         event = Event.objects.get(id=pk)
+#         event.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class ActivateIFTTT(APIView):
     permission_classes = (AllowAny,)
