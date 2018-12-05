@@ -286,7 +286,7 @@ class ChildList(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         serializer = ChildSerializer(data=request.data)
-        serializer = ChildSerializer(data=request.data, many+True)
+        serializer = ChildSerializer(data=request.data, many=True)
         return Response(serializer.data)
 
     def destroy(self, request, pk=None):
