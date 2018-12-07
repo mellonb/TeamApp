@@ -2,6 +2,16 @@
 
 
 
+define("littlebits-frontend/adapters/application", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.JSONAPIAdapter.extend({
+    namespace: "api"
+  });
+});
 define('littlebits-frontend/app', ['exports', 'littlebits-frontend/resolver', 'ember-load-initializers', 'littlebits-frontend/config/environment'], function (exports, _resolver, _emberLoadInitializers, _environment) {
   'use strict';
 
@@ -1812,6 +1822,56 @@ define('littlebits-frontend/mixins/active-link', ['exports', 'ember-cli-active-l
   });
   exports.default = _activeLink.default;
 });
+define("littlebits-frontend/models/child", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({
+    name: _emberData.default.attr("string"),
+    parent: _emberData.default.belongsTo("profile", { async: true })
+
+  });
+});
+define("littlebits-frontend/models/event", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({
+    timestamp: _emberData.default.attr("date"),
+    title: _emberData.default.attr("string"),
+    info: _emberData.default.attr("string"),
+    group: _emberData.default.belongsTo("group", { async: true })
+  });
+});
+define("littlebits-frontend/models/group", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({
+    name: _emberData.default.attr("string"),
+    members: _emberData.default.hasMany("child")
+
+  });
+});
+define("littlebits-frontend/models/profile", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({
+    name: _emberData.default.attr("string"),
+    phone_number: _emberData.default.attr("number"),
+    user: _emberData.default.belongsTo("profile", { async: true })
+
+  });
+});
 define('littlebits-frontend/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
   'use strict';
 
@@ -1839,71 +1899,17 @@ define('littlebits-frontend/router', ['exports', 'littlebits-frontend/config/env
 
   exports.default = Router;
 });
-define('littlebits-frontend/routes/index', ['exports'], function (exports) {
-  'use strict';
+define("littlebits-frontend/routes/index", ["exports"], function (exports) {
+	"use strict";
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-
-
-  var defaultitems = Ember.A([{
-    title: 'CYBR 8470',
-    description: 'Exciting stuff!',
-    img: 'img/NGC-logo.png',
-    link: '',
-    link_external: 'http://mlhale.github.io/CYBR8470'
-
-  }, {
-    title: 'Masonry-based Event Display Template',
-    description: 'You are seeing this template, because you haven\'t loaded any data into your client yet. This Template will be used to display events as they load from your REST API.',
-    img: 'img/template-icon.svg',
-    link: 'index'
-
-  }]);
-
-  exports.default = Ember.Route.extend({
-    getData: function getData() {
-      var items = Ember.A([]);
-      return Ember.$.get('/api/events').then(function (events) {
-        events.forEach(function (event) {
-          // console.log(event);
-          items.addObject({
-            id: event.pk,
-            eventtype: event.fields.eventtype,
-            requestor: event.fields.requestor,
-            timestamp: event.fields.timestamp,
-            userid: event.fields.userid,
-            img: 'img/event-icon.jpg',
-            link: 'index'
-          });
-        });
-        return items.reverse();
-      }, function (msg) {
-        //error
-        console.log('Error loading events:');
-        console.log(msg.statusText);
-      });
-    },
-    model: function model() {
-      return this.getData();
-    },
-    setupController: function setupController(controller, model) {
-      this._super(controller, model);
-      controller.set('defaultitems', defaultitems);
-      var route = this;
-      setInterval(Ember.run.later(route, function () {
-        // code here will execute within a RunLoop about every minute
-        if (controller.get('auth.isLoggedIn')) {
-          route.getData().then(function (data) {
-            if (data[0].id != controller.get('content')[0].id) {
-              controller.get('content').insertAt(0, data[0]);
-            }
-          });
-        }
-      }, 5), 3000);
-    }
-  });
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = Ember.Route.extend({
+		model: function model() {
+			return this.store.findAll("group");
+		}
+	});
 });
 define('littlebits-frontend/routes/login', ['exports'], function (exports) {
   'use strict';
