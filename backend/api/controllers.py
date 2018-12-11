@@ -21,7 +21,8 @@ from django.contrib.auth.models import *
 from api.models import *
 
 #REST API
-from rest_framework import viewsets, filters, parsers, renderers
+from rest_framework import viewsets, filters
+from rest_framework_json_api import parsers, renderers
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -119,40 +120,40 @@ class Session(APIView):
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class Events(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def get(self, request, format=None):
-        events = Event.objects.all()
-        json_data = serializers.serialize('json', events)
-        content = {'events': json_data}
-        return HttpResponse(json_data, content_type='json')
-
-    def post(self, request, *args, **kwargs):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        eventtype = request.data.get('eventtype')
-        timestamp = int(request.data.get('timestamp'))
-        userid = request.data.get('userid')
-        requestor = request.META['REMOTE_ADDR']
-
-        newEvent = Event(
-            eventtype=eventtype,
-            timestamp=datetime.datetime.fromtimestamp(timestamp/1000, pytz.utc),
-            userid=userid,
-            requestor=requestor
-        )
-
-        try:
-            newEvent.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
-        newEvent.save()
-        print 'New Event Logged from: ' + requestor
-        return Response({'success': True}, status=status.HTTP_200_OK)
+# class Events(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def get(self, request, format=None):
+#         events = Event.objects.all()
+#         json_data = serializers.serialize('json', events)
+#         content = {'events': json_data}
+#         return HttpResponse(json_data, content_type='json')
+#
+#     def post(self, request, *args, **kwargs):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         eventtype = request.data.get('eventtype')
+#         timestamp = int(request.data.get('timestamp'))
+#         userid = request.data.get('userid')
+#         requestor = request.META['REMOTE_ADDR']
+#
+#         newEvent = Event(
+#             eventtype=eventtype,
+#             timestamp=datetime.datetime.fromtimestamp(timestamp/1000, pytz.utc),
+#             userid=userid,
+#             requestor=requestor
+#         )
+#
+#         try:
+#             newEvent.clean_fields()
+#         except ValidationError as e:
+#             print e
+#             return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+#         newEvent.save()
+#         print 'New Event Logged from: ' + requestor
+#         return Response({'success': True}, status=status.HTTP_200_OK)
 
 # class DogDetail(APIView):
 #     permission_classes = (AllowAny,)
@@ -498,48 +499,48 @@ class EventViewSet(viewsets.ModelViewSet):
 #         event.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class ActivateIFTTT(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-    def post(self,request):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        eventtype = request.data.get('eventtype')
-        timestamp = int(request.data.get('timestamp'))
-        requestor = request.META['REMOTE_ADDR']
-        api_key = ApiKey.objects.all().first()
-        event_hook = "test"
-
-        print "Creating New event"
-
-        newEvent = Event(
-            eventtype=eventtype,
-            timestamp=datetime.datetime.fromtimestamp(timestamp/1000, pytz.utc),
-            userid=str(api_key.owner),
-            requestor=requestor
-        )
-
-        print newEvent
-        print "Sending Device Event to IFTTT hook: " + str(event_hook)
-
-        #send the new event to IFTTT and print the result
-        event_req = requests.post('https://maker.ifttt.com/trigger/'+str(event_hook)+'/with/key/'+api_key.key, data= {
-            'value1' : timestamp,
-            'value2':  "\""+str(eventtype)+"\"",
-            'value3' : "\""+str(requestor)+"\""
-        })
-        print event_req.text
-
-        #check that the event is safe to store in the databse
-        try:
-            newEvent.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
-
-        #log the event in the DB
-        newEvent.save()
-        print 'New Event Logged'
-        return Response({'success': True}, status=status.HTTP_200_OK)
+# class ActivateIFTTT(APIView):
+#     permission_classes = (AllowAny,)
+#     parser_classes = (parsers.JSONParser,parsers.FormParser)
+#     renderer_classes = (renderers.JSONRenderer, )
+#     def post(self,request):
+#         print 'REQUEST DATA'
+#         print str(request.data)
+#
+#         eventtype = request.data.get('eventtype')
+#         timestamp = int(request.data.get('timestamp'))
+#         requestor = request.META['REMOTE_ADDR']
+#         api_key = ApiKey.objects.all().first()
+#         event_hook = "test"
+#
+#         print "Creating New event"
+#
+#         newEvent = Event(
+#             eventtype=eventtype,
+#             timestamp=datetime.datetime.fromtimestamp(timestamp/1000, pytz.utc),
+#             userid=str(api_key.owner),
+#             requestor=requestor
+#         )
+#
+#         print newEvent
+#         print "Sending Device Event to IFTTT hook: " + str(event_hook)
+#
+#         #send the new event to IFTTT and print the result
+#         event_req = requests.post('https://maker.ifttt.com/trigger/'+str(event_hook)+'/with/key/'+api_key.key, data= {
+#             'value1' : timestamp,
+#             'value2':  "\""+str(eventtype)+"\"",
+#             'value3' : "\""+str(requestor)+"\""
+#         })
+#         print event_req.text
+#
+#         #check that the event is safe to store in the databse
+#         try:
+#             newEvent.clean_fields()
+#         except ValidationError as e:
+#             print e
+#             return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         #log the event in the DB
+#         newEvent.save()
+#         print 'New Event Logged'
+#         return Response({'success': True}, status=status.HTTP_200_OK)

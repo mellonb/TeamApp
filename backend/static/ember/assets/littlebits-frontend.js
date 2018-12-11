@@ -1855,7 +1855,8 @@ define("littlebits-frontend/models/group", ["exports", "ember-data"], function (
   });
   exports.default = _emberData.default.Model.extend({
     name: _emberData.default.attr("string"),
-    members: _emberData.default.hasMany("child")
+    members: _emberData.default.hasMany("child"),
+    discordchatid: _emberData.default.attr("string")
 
   });
 });
@@ -1867,9 +1868,19 @@ define("littlebits-frontend/models/profile", ["exports", "ember-data"], function
   });
   exports.default = _emberData.default.Model.extend({
     name: _emberData.default.attr("string"),
-    phone_number: _emberData.default.attr("number"),
-    user: _emberData.default.belongsTo("profile", { async: true })
+    phonenumber: _emberData.default.attr("number"),
+    user: _emberData.default.belongsTo("user", { async: true })
 
+  });
+});
+define("littlebits-frontend/models/user", ["exports", "ember-data"], function (exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _emberData.default.Model.extend({
+    profile: _emberData.default.belongsTo("profile")
   });
 });
 define('littlebits-frontend/resolver', ['exports', 'ember-resolver'], function (exports, _emberResolver) {
@@ -1899,17 +1910,27 @@ define('littlebits-frontend/router', ['exports', 'littlebits-frontend/config/env
 
   exports.default = Router;
 });
-define("littlebits-frontend/routes/index", ["exports"], function (exports) {
-	"use strict";
+define('littlebits-frontend/routes/index', ['exports'], function (exports) {
+  'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = Ember.Route.extend({
-		model: function model() {
-			return this.store.findAll("group");
-		}
-	});
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = Ember.Route.extend({
+    model: function model() {
+      return Ember.RSVP.hash({
+        events: this.store.findAll('event'),
+        groups: this.store.findAll('group'),
+        children: this.store.findAll('child'),
+        profiles: this.store.findAll('profile')
+      });
+    }
+    // model() {
+    //   return this.store.findAll("group");
+    //
+    // }
+
+  });
 });
 define('littlebits-frontend/routes/login', ['exports'], function (exports) {
   'use strict';
@@ -1968,7 +1989,7 @@ define('littlebits-frontend/services/auth-manager', ['exports'], function (expor
 			//make api request
 			Ember.$.post('/api/session', data, function (response) {
 
-				if (response.isauthenticated) {
+				if (response.data.isauthenticated) {
 					//success
 					auth.set('userid', response.userid);
 					auth.set('isLoggedIn', true);
@@ -2032,11 +2053,11 @@ define('littlebits-frontend/services/auth-manager', ['exports'], function (expor
 
 			//check to see if the user is logged into the API
 			Ember.$.get('/api/session', function (response) {
-				if (response.isauthenticated) {
+				if (response.data.isauthenticated) {
 					//success
-					console.log('The user: \'' + response.username + '\' is currently logged in.');
-					auth.set('username', response.username);
-					auth.set('userid', response.userid);
+					console.log('The user: \'' + response.data.username + '\' is currently logged in.');
+					auth.set('username', response.data.username);
+					auth.set('userid', response.data.userid);
 					auth.set('isLoggedIn', true);
 				} else {
 					//errors
@@ -2115,7 +2136,7 @@ define("littlebits-frontend/templates/index", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "HqXoIjwa", "block": "{\"statements\":[[4,\"   *** PORTFOLIO ***\"],[0,\"\\n Hello world.\\n\\n \"],[1,[26,[\"testmath\"]],false],[0,\"\\n\\n \"],[11,\"iframe\",[]],[15,\"class\",\"discord\"],[15,\"src\",\"https://discordapp.com/widget?id=201798443583143936&theme=dark\"],[13],[14],[0,\"\\n\\n\\n\"],[4,\" {{#if content}}\\n\\t{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{else}}\\n\\t{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h4> <a href=\\\"#\\\">{{item.title}}</a></h4>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{item.description}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{/if}} \"],[0,\"\\n\\n\"],[4,\"   *** PORTFOLIO END ***\\n\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/index.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "oyt54g4k", "block": "{\"statements\":[[4,\"   *** PORTFOLIO ***\"],[0,\"\\n Hello world.\\n\\n \"],[1,[26,[\"testmath\"]],false],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Events \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"events\"]]],null,{\"statements\":[[0,\" \"],[1,[28,[\"event\",\"timestamp\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"title\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"info\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"event\"]},null],[0,\" \"],[11,\"h1\",[]],[13],[0,\" Groups \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"groups\"]]],null,{\"statements\":[[0,\"    \"],[1,[28,[\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"group\",\"members\"]]],null,{\"statements\":[[0,\"      \"],[1,[28,[\"member\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"member\"]},null],[6,[\"if\"],[[28,[\"group\",\"discordchatid\"]]],null,{\"statements\":[[0,\"    \"],[11,\"iframe\",[]],[15,\"class\",\"discord\"],[16,\"src\",[34,[\"https://discordapp.com/widget?id=\",[28,[\"group\",\"discordchatid\"]],\"&theme=dark\"]]],[13],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[\"group\"]},null],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Profiles \"],[14],[0,\"\\n\\n\\n\\n\\n\\n\\n\\n\"],[4,\" {{#if content}}\\n\\t{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{else}}\\n\\t{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h4> <a href=\\\"#\\\">{{item.title}}</a></h4>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{item.description}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{/if}} \"],[0,\"\\n\\n\"],[4,\"   *** PORTFOLIO END ***\\n\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/index.hbs" } });
 });
 define("littlebits-frontend/templates/login", ["exports"], function (exports) {
   "use strict";

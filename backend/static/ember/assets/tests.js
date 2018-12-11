@@ -60,6 +60,11 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
     assert.ok(true, 'models/profile.js should pass ESLint\n\n');
   });
 
+  QUnit.test('models/user.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/user.js should pass ESLint\n\n');
+  });
+
   QUnit.test('resolver.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'resolver.js should pass ESLint\n\n');
@@ -254,6 +259,11 @@ define('littlebits-frontend/tests/tests.lint-test', [], function () {
     assert.ok(true, 'unit/models/profile-test.js should pass ESLint\n\n');
   });
 
+  QUnit.test('unit/models/user-test.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'unit/models/user-test.js should pass ESLint\n\n');
+  });
+
   QUnit.test('unit/routes/index-test.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'unit/routes/index-test.js should pass ESLint\n\n');
@@ -426,6 +436,20 @@ define('littlebits-frontend/tests/unit/models/profile-test', ['ember-qunit'], fu
   'use strict';
 
   (0, _emberQunit.moduleForModel)('profile', 'Unit | Model | profile', {
+    // Specify the other units that are required for this test.
+    needs: []
+  });
+
+  (0, _emberQunit.test)('it exists', function (assert) {
+    var model = this.subject();
+    // let store = this.store();
+    assert.ok(!!model);
+  });
+});
+define('littlebits-frontend/tests/unit/models/user-test', ['ember-qunit'], function (_emberQunit) {
+  'use strict';
+
+  (0, _emberQunit.moduleForModel)('user', 'Unit | Model | user', {
     // Specify the other units that are required for this test.
     needs: []
   });

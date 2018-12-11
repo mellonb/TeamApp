@@ -2,8 +2,30 @@
  Hello world.
 
  {{testmath}}
+ <h1> Events </h1>
+ {{#each model.events as |event|}}
+ {{event.timestamp}}<br>
+ {{event.title}}<br>
+ {{event.info}}<br>
+ {{event.group.name}}<br>
+ {{/each}}
+ <h1> Groups </h1>
+ {{#each model.groups as |group|}}
+    {{group.name}}<br>
+    {{#each group.members as |member|}}
+      {{member.name}}<br>
+    {{/each}}
+    {{#if group.discordchatid}}
+    <iframe class="discord" src="https://discordapp.com/widget?id={{group.discordchatid}}&theme=dark"/>
+    {{/if}}
+ {{/each}}
 
- <iframe class="discord" src="https://discordapp.com/widget?id=201798443583143936&theme=dark"/>
+ <h1> Profiles </h1>
+
+
+
+
+
 
 
 <!-- {{#if content}}

@@ -8,7 +8,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib import admin
 import base64
 
-from rest_framework import serializers
+from rest_framework_json_api import serializers
 
 def validation(value):
     if 1 <= value <= 5:
@@ -53,35 +53,48 @@ class Event(models.Model):
     group = models.ForeignKey(Group, related_name="events", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.name)
+        return str(self.title)
+
+    class JSONAPIMeta:
+        resource_name = "events"
 
 
 phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 class Profile(models.Model):
     name = models.CharField(max_length=1000, blank=False)
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+    phonenumber = models.CharField(validators=[phone_regex], max_length=17, blank=True)
     # validators should be a list
     user =models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
 
     def __str__(self):
         return str(self.name)
 
+    class JSONAPIMeta:
+        resource_name = "profiles"
+
     # relationship field
     # children <-- list of parent objects related to this profile
 
 class Child(models.Model):
     name = models.CharField(max_length=1000, blank=False)
-    parent = models.ForeignKey(Profile, related_name="children", on_delete=models.CASCADE)
+    parent = models.ForeignKey(Profile, related_name="childs", on_delete=models.CASCADE)
 
     def __str__(self):
         return str(str(self.id)+' - ' + self.name)
+
+    class JSONAPIMeta:
+        resource_name = "childs"
 
 class Group(models.Model):
     name = models.CharField(max_length=1000, blank=False)
     members = models.ManyToManyField(Child, related_name="groups")
+    discordchatid = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
         return str(str(self.id)+' - ' + self.name)
+
+    class JSONAPIMeta:
+        resource_name = "groups"
     # relationship fields
     # events <-- list of event objects mapped to this group
 
@@ -93,7 +106,7 @@ class EventSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ('id', 'name', 'phone_number', 'user')
+        fields = ('id', 'name', 'phonenumber', 'user')
 
 class ChildSerializer(serializers.ModelSerializer):
     class Meta:
@@ -103,10 +116,11 @@ class ChildSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.ModelSerializer):
     included_serializers = {
     'members': ChildSerializer, 'events': EventSerializer
+
     }
     class Meta:
         model = Group
-        fields = ('name', 'members')
+        fields = ('name', 'members', 'discordchatid')
     class JSONAPIMeta:
         included_resources = ['members', 'events']
 
@@ -114,7 +128,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('timestamp', 'title', 'info', 'group')
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'phone_number')
+    list_display = ('id', 'phonenumber')
 
 class ChildAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent')

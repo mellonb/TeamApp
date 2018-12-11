@@ -30,7 +30,7 @@ export default Ember.Service.extend({
 		//make api request
 		Ember.$.post('/api/session', data, function(response){
 
-			if(response.isauthenticated){
+			if(response.data.isauthenticated){
 				//success
 				auth.set('userid', response.userid);
 				auth.set('isLoggedIn', true);
@@ -102,11 +102,11 @@ export default Ember.Service.extend({
 
 		//check to see if the user is logged into the API
 		Ember.$.get('/api/session', function(response){
-			if(response.isauthenticated){
+			if(response.data.isauthenticated){
 				//success
-				console.log('The user: \''+response.username+'\' is currently logged in.');
-				auth.set('username', response.username);
-				auth.set('userid', response.userid);
+				console.log('The user: \''+response.data.username+'\' is currently logged in.');
+				auth.set('username', response.data.username);
+				auth.set('userid', response.data.userid);
 				auth.set('isLoggedIn', true);
 			} else{
 				//errors
