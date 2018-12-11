@@ -269,6 +269,11 @@ class ChildViewSet(viewsets.ModelViewSet):
     queryset = Child.objects.all()
     permission_classes = (AllowAny,)
 
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+
     # def list(self, request):
     #     queryset = Child.objects.all()
     #     serializer = ChildSerializer(queryset, many=True)
