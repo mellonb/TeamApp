@@ -113,6 +113,11 @@ class ChildSerializer(serializers.ModelSerializer):
         model = Child
         fields = ('name', 'parent')
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'email')
+
 class GroupSerializer(serializers.ModelSerializer):
     included_serializers = {
     'members': ChildSerializer, 'events': EventSerializer
@@ -135,6 +140,9 @@ class ChildAdmin(admin.ModelAdmin):
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'first_name', 'last_name', 'email')
 
 class DogSerializer(serializers.ModelSerializer):
     class Meta:
