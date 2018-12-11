@@ -1922,7 +1922,8 @@ define('littlebits-frontend/routes/index', ['exports'], function (exports) {
         events: this.store.findAll('event'),
         groups: this.store.findAll('group'),
         children: this.store.findAll('child'),
-        profiles: this.store.findAll('profile')
+        profiles: this.store.findAll('profile'),
+        users: this.store.findAll('user')
       });
     }
     // model() {
