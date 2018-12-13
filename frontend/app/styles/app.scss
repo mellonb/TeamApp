@@ -1,3 +1,5 @@
+@import "bootstrap";
+
 @import "ember-power-calendar";
 .demo-calendar-red {
   @include ember-power-calendar($cell-size: 40px, $primary-color: red);

@@ -1,13 +1,15 @@
 <!--   *** PORTFOLIO ***-->
  Hello world.
 
- {{testmath}}
- {{#power-calendar
-   center=center
-   onCenterChange=(action (mut center) value="date") as |calendar|}}
+
+ {{#power-calendar-multiple
+   selected=collection
+   onSelect=(action (mut collection) value="date") as |calendar|}}
    {{calendar.nav}}
-   {{calendar.days}}
- {{/power-calendar}}
+   {{#calendar.days as |day|}}
+    {{day.number}}
+   {{/calendar.days}}
+ {{/power-calendar-multiple}}
  <h1> Events </h1>
  {{#each model.events as |event|}}
     {{event.timestamp}}<br>
@@ -24,7 +26,7 @@
       {{member.name}}<br>
     {{/each}}
     {{#if group.discordchatid}}
-    <iframe class="discord" src="https://discordapp.com/widget?id={{group.discordchatid}}&theme=light"/>
+    <iframe class="discord" src="https://discordapp.com/widget?id={{group.discordchatid}}&theme=light"/><br>
     {{/if}}
  {{/each}}
 

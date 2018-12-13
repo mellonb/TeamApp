@@ -22,7 +22,7 @@ define('littlebits-frontend/tests/app.lint-test', [], function () {
 
   QUnit.test('controllers/index.js', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'controllers/index.js should pass ESLint\n\n');
+    assert.ok(false, 'controllers/index.js should pass ESLint\n\n3:2 - \'add\' is defined but never used. (no-unused-vars)\n4:2 - \'isBefore\' is defined but never used. (no-unused-vars)\n5:2 - \'startOf\' is defined but never used. (no-unused-vars)\n6:2 - \'endOf\' is defined but never used. (no-unused-vars)\n7:2 - \'isoWeekday\' is defined but never used. (no-unused-vars)\n8:2 - \'weekday\' is defined but never used. (no-unused-vars)');
   });
 
   QUnit.test('controllers/login.js', function (assert) {
