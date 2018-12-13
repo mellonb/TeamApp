@@ -1034,6 +1034,97 @@ define("littlebits-frontend/components/liquid-versions", ["exports", "liquid-fir
     }
   });
 });
+define('littlebits-frontend/components/power-calendar-multiple', ['exports', 'ember-power-calendar/components/power-calendar-multiple'], function (exports, _powerCalendarMultiple) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendarMultiple.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar-multiple/days', ['exports', 'ember-power-calendar/components/power-calendar-multiple/days'], function (exports, _days) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _days.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar-range', ['exports', 'ember-power-calendar/components/power-calendar-range'], function (exports, _powerCalendarRange) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendarRange.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar-range/days', ['exports', 'ember-power-calendar/components/power-calendar-range/days'], function (exports, _days) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _days.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar', ['exports', 'ember-power-calendar/components/power-calendar'], function (exports, _powerCalendar) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendar.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar/days', ['exports', 'ember-power-calendar/components/power-calendar/days'], function (exports, _days) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _days.default;
+    }
+  });
+});
+define('littlebits-frontend/components/power-calendar/nav', ['exports', 'ember-power-calendar/components/power-calendar/nav'], function (exports, _nav) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _nav.default;
+    }
+  });
+});
 define('littlebits-frontend/components/welcome-page', ['exports', 'ember-welcome-page/components/welcome-page'], function (exports, _welcomePage) {
   'use strict';
 
@@ -1155,6 +1246,25 @@ define('littlebits-frontend/helpers/app-version', ['exports', 'littlebits-fronte
   }
 
   exports.default = Ember.Helper.helper(appVersion);
+});
+define('littlebits-frontend/helpers/assign', ['exports', 'ember-assign-helper/helpers/assign'], function (exports, _assign) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _assign.default;
+    }
+  });
+  Object.defineProperty(exports, 'assign', {
+    enumerable: true,
+    get: function () {
+      return _assign.assign;
+    }
+  });
 });
 define('littlebits-frontend/helpers/bs-contains', ['exports', 'ember-bootstrap/helpers/bs-contains'], function (exports, _bsContains) {
   'use strict';
@@ -1525,6 +1635,25 @@ define('littlebits-frontend/helpers/pluralize', ['exports', 'ember-inflector/lib
     value: true
   });
   exports.default = _pluralize.default;
+});
+define('littlebits-frontend/helpers/power-calendar-format-date', ['exports', 'ember-power-calendar/helpers/power-calendar-format-date'], function (exports, _powerCalendarFormatDate) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendarFormatDate.default;
+    }
+  });
+  Object.defineProperty(exports, 'powerCalendarFormatDate', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendarFormatDate.powerCalendarFormatDate;
+    }
+  });
 });
 define('littlebits-frontend/helpers/singularize', ['exports', 'ember-inflector/lib/helpers/singularize'], function (exports, _singularize) {
   'use strict';
@@ -2097,6 +2226,19 @@ define('littlebits-frontend/services/moment', ['exports', 'ember-moment/services
     defaultFormat: get(_environment.default, 'moment.outputFormat')
   });
 });
+define('littlebits-frontend/services/power-calendar', ['exports', 'ember-power-calendar/services/power-calendar'], function (exports, _powerCalendar) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, 'default', {
+    enumerable: true,
+    get: function () {
+      return _powerCalendar.default;
+    }
+  });
+});
 define("littlebits-frontend/templates/application", ["exports"], function (exports) {
   "use strict";
 
@@ -2137,7 +2279,7 @@ define("littlebits-frontend/templates/index", ["exports"], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.default = Ember.HTMLBars.template({ "id": "oyt54g4k", "block": "{\"statements\":[[4,\"   *** PORTFOLIO ***\"],[0,\"\\n Hello world.\\n\\n \"],[1,[26,[\"testmath\"]],false],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Events \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"events\"]]],null,{\"statements\":[[0,\" \"],[1,[28,[\"event\",\"timestamp\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"title\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"info\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[1,[28,[\"event\",\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"event\"]},null],[0,\" \"],[11,\"h1\",[]],[13],[0,\" Groups \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"groups\"]]],null,{\"statements\":[[0,\"    \"],[1,[28,[\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"group\",\"members\"]]],null,{\"statements\":[[0,\"      \"],[1,[28,[\"member\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"member\"]},null],[6,[\"if\"],[[28,[\"group\",\"discordchatid\"]]],null,{\"statements\":[[0,\"    \"],[11,\"iframe\",[]],[15,\"class\",\"discord\"],[16,\"src\",[34,[\"https://discordapp.com/widget?id=\",[28,[\"group\",\"discordchatid\"]],\"&theme=dark\"]]],[13],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[\"group\"]},null],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Profiles \"],[14],[0,\"\\n\\n\\n\\n\\n\\n\\n\\n\"],[4,\" {{#if content}}\\n\\t{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{else}}\\n\\t{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h4> <a href=\\\"#\\\">{{item.title}}</a></h4>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{item.description}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{/if}} \"],[0,\"\\n\\n\"],[4,\"   *** PORTFOLIO END ***\\n\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/index.hbs" } });
+  exports.default = Ember.HTMLBars.template({ "id": "j7StgZuT", "block": "{\"statements\":[[4,\"   *** PORTFOLIO ***\"],[0,\"\\n Hello world.\\n\\n \"],[1,[26,[\"testmath\"]],false],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Events \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"events\"]]],null,{\"statements\":[[0,\"    \"],[1,[28,[\"event\",\"timestamp\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"event\",\"title\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"event\",\"info\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[1,[28,[\"event\",\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"],[6,[\"power-calendar\"],null,[[\"center\",\"onCenterChange\"],[[28,[\"center\"]],[33,[\"action\"],[[28,[null]],[33,[\"mut\"],[[28,[\"center\"]]],null]],[[\"value\"],[\"date\"]]]]],{\"statements\":[[0,\"      \"],[1,[28,[\"calendar\",\"nav\"]],false],[0,\"\\n      \"],[1,[28,[\"calendar\",\"days\"]],false],[0,\"\\n\"]],\"locals\":[\"calendar\"]},null],[0,\"\\n\"]],\"locals\":[\"event\"]},null],[0,\" \"],[11,\"h1\",[]],[13],[0,\" Groups \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"groups\"]]],null,{\"statements\":[[0,\"    \"],[1,[28,[\"group\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"group\",\"members\"]]],null,{\"statements\":[[0,\"      \"],[1,[28,[\"member\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"member\"]},null],[6,[\"if\"],[[28,[\"group\",\"discordchatid\"]]],null,{\"statements\":[[0,\"    \"],[11,\"iframe\",[]],[15,\"class\",\"discord\"],[16,\"src\",[34,[\"https://discordapp.com/widget?id=\",[28,[\"group\",\"discordchatid\"]],\"&theme=light\"]]],[13],[14],[0,\"\\n\"]],\"locals\":[]},null]],\"locals\":[\"group\"]},null],[0,\"\\n\"],[11,\"br\",[]],[13],[14],[0,\"\\n \"],[11,\"h1\",[]],[13],[0,\" Profiles \"],[14],[0,\"\\n\"],[6,[\"each\"],[[28,[\"model\",\"profiles\"]]],null,{\"statements\":[[0,\"    \"],[1,[28,[\"profile\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n    \"],[6,[\"each\"],[[28,[\"profile\",\"user\"]]],null,{\"statements\":[[11,\"br\",[]],[13],[14],[0,\"\\n        \"],[1,[28,[\"profile\",\"name\"]],false],[11,\"br\",[]],[13],[14],[0,\"\\n\"]],\"locals\":[\"user\"]},null]],\"locals\":[\"profile\"]},null],[0,\"\\n\\n\\n\\n\\n\\n\\n\"],[4,\" {{#if content}}\\n\\t{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{else}}\\n\\t{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}\\n\\t\\t{{#masonry-item item=item grid=grid class=\\\"box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5\\\"}}\\n\\t\\t\\t{{#if item.link}}\\n\\t\\t\\t\\t{{#link-to item.link class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\"}}\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t{{/link-to}}\\n\\t\\t\\t{{else if item.link_external}}\\n\\t\\t\\t\\t<a href=\\\"{{item.link_external}}\\\" target=\\\"_blank\\\" class=\\\"box-masonry-image with-hover-overlay with-hover-icon\\\">\\n\\t\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t\\t</a>\\n\\t\\t\\t{{else}}\\n\\t\\t\\t\\t<img src=\\\"{{constants.rootURL}}{{item.img}}\\\" class=\\\"img-responsive\\\">\\n\\t\\t\\t{{/if}}\\n\\t\\t\\t<div class=\\\"box-masonry-text\\\">\\n\\t\\t\\t\\t<h4> <a href=\\\"#\\\">{{item.title}}</a></h4>\\n\\t\\t\\t\\t<div class=\\\"box-masonry-desription\\\">\\n\\t\\t\\t\\t\\t<p>{{item.description}}</p>\\n\\t\\t\\t\\t</div>\\n\\t\\t\\t</div>\\n\\t\\t{{/masonry-item}}\\n\\t{{/masonry-grid}}\\n{{/if}} \"],[0,\"\\n\\n\"],[4,\"   *** PORTFOLIO END ***\\n\"],[0,\"\\n\"]],\"locals\":[],\"named\":[],\"yields\":[],\"hasPartials\":false}", "meta": { "moduleName": "littlebits-frontend/templates/index.hbs" } });
 });
 define("littlebits-frontend/templates/login", ["exports"], function (exports) {
   "use strict";

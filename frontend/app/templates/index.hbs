@@ -4,10 +4,17 @@
  {{testmath}}
  <h1> Events </h1>
  {{#each model.events as |event|}}
- {{event.timestamp}}<br>
- {{event.title}}<br>
- {{event.info}}<br>
- {{event.group.name}}<br>
+    {{event.timestamp}}<br>
+    {{event.title}}<br>
+    {{event.info}}<br>
+    {{event.group.name}}<br>
+    {{#power-calendar
+      center=center
+      onCenterChange=(action (mut center) value="date") as |calendar|}}
+      {{calendar.nav}}
+      {{calendar.days}}
+    {{/power-calendar}}
+
  {{/each}}
  <h1> Groups </h1>
  {{#each model.groups as |group|}}
@@ -16,11 +23,18 @@
       {{member.name}}<br>
     {{/each}}
     {{#if group.discordchatid}}
-    <iframe class="discord" src="https://discordapp.com/widget?id={{group.discordchatid}}&theme=dark"/>
+    <iframe class="discord" src="https://discordapp.com/widget?id={{group.discordchatid}}&theme=light"/>
     {{/if}}
  {{/each}}
 
+<br>
  <h1> Profiles </h1>
+ {{#each model.profiles as |profile|}}
+    {{profile.name}}<br>
+    {{#each profile.user as |user|}}<br>
+        {{profile.name}}<br>
+    {{/each}}
+{{/each}}
 
 
 

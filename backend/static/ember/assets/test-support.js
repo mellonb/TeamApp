@@ -10074,6 +10074,142 @@ define('ember-cli-test-loader/test-support/index', ['exports'], function (export
   exports.default = TestLoader;
   ;
 });
+define('ember-power-calendar/test-support/index', ['exports', '@ember/test-helpers', 'ember-power-calendar-utils'], function (exports, _testHelpers, _emberPowerCalendarUtils) {
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.calendarSelect = exports.calendarCenter = undefined;
+
+  function _asyncToGenerator(fn) {
+    return function () {
+      var gen = fn.apply(this, arguments);
+      return new Promise(function (resolve, reject) {
+        function step(key, arg) {
+          try {
+            var info = gen[key](arg);
+            var value = info.value;
+          } catch (error) {
+            reject(error);
+            return;
+          }
+
+          if (info.done) {
+            resolve(value);
+          } else {
+            return Promise.resolve(value).then(function (value) {
+              step("next", value);
+            }, function (err) {
+              step("throw", err);
+            });
+          }
+        }
+
+        return step("next");
+      });
+    };
+  }
+
+  function findCalendarElement(selector) {
+    var target = (0, _testHelpers.find)(selector);
+    if (target) {
+      if (target.classList.contains('ember-power-calendar')) {
+        return target;
+      } else {
+        return target.querySelector('.ember-power-calendar') || target.querySelector('[data-power-calendar-id]');
+      }
+    }
+  }
+
+  function findCalendarGuid(selector) {
+    var maybeCalendar = findCalendarElement(selector);
+    if (!maybeCalendar) {
+      return;
+    }
+    if (maybeCalendar.classList.contains('ember-power-calendar')) {
+      return maybeCalendar.id;
+    } else {
+      return maybeCalendar.attributes['data-power-calendar-id'].value;
+    }
+  }
+
+  function findComponentInstance(selector) {
+    var calendarGuid = findCalendarGuid(selector);
+    (true && !(calendarGuid) && Ember.assert('Could not find a calendar using selector: "' + selector + '"', calendarGuid));
+
+    return window.__powerCalendars[calendarGuid];
+  }
+
+  var calendarCenter = exports.calendarCenter = function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(selector, newCenter) {
+      var calendarComponent, onCenterChange, publicAPI;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              (true && !(newCenter instanceof Date) && Ember.assert('`calendarCenter` expect a Date object as second argument', newCenter instanceof Date));
+              calendarComponent = findComponentInstance(selector);
+              onCenterChange = calendarComponent.get('onCenterChange');
+              (true && !(!!onCenterChange) && Ember.assert('You cannot call `calendarCenter` on a component that doesn\'t has an `onCenterChange` action', !!onCenterChange));
+              publicAPI = calendarComponent.get('publicAPI');
+              _context.next = 7;
+              return Ember.run(function () {
+                return publicAPI.actions.changeCenter(newCenter, publicAPI);
+              });
+
+            case 7:
+              return _context.abrupt('return', (0, _testHelpers.settled)());
+
+            case 8:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, this);
+    }));
+
+    return function calendarCenter(_x, _x2) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var calendarSelect = exports.calendarSelect = function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(selector, selected) {
+      var calendarElement, daySelector, dayElement;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              (true && !(selected) && Ember.assert('`calendarSelect` expect a Date object as second argument', selected));
+              calendarElement = findCalendarElement(selector);
+              daySelector = selector + ' [data-date="' + (0, _emberPowerCalendarUtils.formatDate)(selected, 'YYYY-MM-DD') + '"]';
+              dayElement = calendarElement.querySelector(daySelector);
+
+              if (dayElement) {
+                _context2.next = 7;
+                break;
+              }
+
+              _context2.next = 7;
+              return calendarCenter(selector, selected);
+
+            case 7:
+              return _context2.abrupt('return', (0, _testHelpers.click)(daySelector));
+
+            case 8:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2, this);
+    }));
+
+    return function calendarSelect(_x3, _x4) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+});
 define('ember-qunit/adapter', ['exports', 'qunit', '@ember/test-helpers/has-ember-version'], function (exports, _qunit, _hasEmberVersion) {
   'use strict';
 
@@ -12518,4 +12654,127 @@ if (window.Testem) {
 }
 
 
-//# sourceMappingURL=test-support.map
+;
+var __ember_auto_import__ =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js":
+/*!**********************************************************!*\
+  !*** ./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("\nwindow._eai_r = require;\nwindow._eai_d = define;\n\n\n//# sourceURL=webpack://__ember_auto_import__/./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js?");
+
+/***/ }),
+
+/***/ "./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js":
+/*!**************************************************************!*\
+  !*** ./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("\nif (typeof document !== 'undefined') {\n  __webpack_require__.p = (function(){\n    var scripts = document.querySelectorAll('script');\n    return scripts[scripts.length - 1].src.replace(/\\/[^/]*$/, '/');\n  })();\n}\n\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  window.emberAutoImportDynamic = function(specifier) {\n    return r('_eai_dyn_' + specifier);\n  };\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__/./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js?");
+
+/***/ }),
+
+/***/ 1:
+/*!***********************************************************************************************************************!*\
+  !*** multi ./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js ./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! /Users/bmellon2/Documents/IASC8470/webclass/doggo-webservice/frontend/tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js */\"./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js\");\nmodule.exports = __webpack_require__(/*! /Users/bmellon2/Documents/IASC8470/webclass/doggo-webservice/frontend/tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js */\"./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js\");\n\n\n//# sourceURL=webpack://__ember_auto_import__/multi_./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/l.js_./tmp/bundler-cache_path-YCYZw5VP.tmp/staging/tests.js?");
+
+/***/ })
+
+/******/ });//# sourceMappingURL=test-support.map
