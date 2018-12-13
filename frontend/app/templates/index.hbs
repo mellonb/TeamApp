@@ -2,18 +2,19 @@
  Hello world.
 
  {{testmath}}
+ {{#power-calendar
+   center=center
+   onCenterChange=(action (mut center) value="date") as |calendar|}}
+   {{calendar.nav}}
+   {{calendar.days}}
+ {{/power-calendar}}
  <h1> Events </h1>
  {{#each model.events as |event|}}
     {{event.timestamp}}<br>
     {{event.title}}<br>
     {{event.info}}<br>
     {{event.group.name}}<br>
-    {{#power-calendar
-      center=center
-      onCenterChange=(action (mut center) value="date") as |calendar|}}
-      {{calendar.nav}}
-      {{calendar.days}}
-    {{/power-calendar}}
+
 
  {{/each}}
  <h1> Groups </h1>

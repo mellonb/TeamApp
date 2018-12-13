@@ -1,4 +1,4 @@
-@import "ember-power-calendar";
+/* @import "ember-power-calendar";
 .demo-calendar-red {
   @include ember-power-calendar($cell-size: 40px, $primary-color: red);
 }
@@ -2154,4 +2154,4 @@ a.list-group-item.active > .badge,
 }
 .nav-pills > li > a > .badge {
   margin-left: 3px;
-}
+} */
